@@ -540,6 +540,42 @@ if (sortSelect) {
 }
 
 // ============================================
+// Articles Page Search
+// ============================================
+const searchInput = document.getElementById('search-input');
+const searchBtn = document.querySelector('.search-btn');
+
+function runSearch() {
+    if (!searchInput) return;
+    const query = searchInput.value.trim().toLowerCase();
+    const cards = document.querySelectorAll('.article-card');
+    const resultsCount = document.querySelector('.results-count span');
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+        const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
+        const excerpt = card.querySelector('.article-content > p')?.textContent.toLowerCase() || '';
+        const category = card.querySelector('.category-badge')?.textContent.toLowerCase() || '';
+        const author = card.querySelector('.author-link')?.textContent.trim().toLowerCase() || '';
+        const matches = !query || title.includes(query) || excerpt.includes(query) || category.includes(query) || author.includes(query);
+
+        card.style.display = matches ? '' : 'none';
+        if (matches) visibleCount++;
+    });
+
+    if (resultsCount) resultsCount.textContent = visibleCount;
+}
+
+if (searchInput) {
+    searchInput.addEventListener('input', runSearch);
+    searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') runSearch(); });
+}
+
+if (searchBtn) {
+    searchBtn.addEventListener('click', runSearch);
+}
+
+// ============================================
 // Contact Form
 // ============================================
 const contactForm = document.getElementById('contact-form');

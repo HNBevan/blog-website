@@ -3089,6 +3089,11 @@ img {
     .pricing-card.featured:hover {
         transform: translateY(-8px);
     }
+    .pricing-grid {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+        margin-inline: auto;
+    }
 }
 
 /* ============================================
